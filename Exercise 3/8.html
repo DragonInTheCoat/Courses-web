@@ -1,0 +1,41 @@
+<script>
+function Snowflake(id)
+{
+	this.id = id;
+	this.y = 0;
+	this.size = Math.random() * 11;
+	this.speedFall = Math.random() * 11;
+	console.log('создал снежинку: ' + JSON.stringify(this));
+	this.fall = function()
+	{
+		this.y += this.speedFall;
+		console.log(this.id + ': ' + this.y);
+	if (this.y >= 100)
+		clearInterval(timerId);
+	}
+	
+	let timerId = setInterval(this.fall.bind(this), 1000);
+}
+//переменная для функции "оборачивающей" ферму
+let factory = function(a)
+{
+	let id = 0;
+	//переменная для создания экземпляра снежинки
+	factorySnowflake = function ()
+	{
+		//проверка на завершение
+		if (id == 4)
+			clearInterval(timerId);
+		a = new Snowflake(id++);
+	}
+	//вызов функции выше
+	let timerId = setInterval(factorySnowflake,1000);
+}
+
+//тут можно запустить несколько переменных, для создания армии снежинок
+//в каждой группе будут ID от 0 до 4, в классе вместо ID был счетчик, так что это было оправдано
+let newFactory = factory;
+let a;
+newFactory(a);
+
+</script>

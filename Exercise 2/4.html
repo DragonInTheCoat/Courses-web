@@ -1,0 +1,18 @@
+<script>
+let arr = [], res = [];
+for(let i = 0; i < 10000; i++)
+	arr.push(i);
+res = arr.filter(function(elem)
+{
+	let k = 0, t = elem;
+	while(t != 0)
+	{
+		k = ((t % 10) == 5)? k + 1: 0;
+		if (k >= 2)
+			return true;
+		t = Math.floor(t / 10);
+	}
+	return false;
+});
+console.log(res);
+</script>

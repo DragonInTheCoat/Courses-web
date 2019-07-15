@@ -1,0 +1,23 @@
+#tags_container {margin:10px 0;}
+.tag {
+    position:relative;
+    display:inline-block;
+    background:#aaeeee;
+    border: solid #88cccc 1px;
+    padding:3px 7px;
+    border-radius:5px;
+    padding-right:25px;
+    margin-right:5px;
+}
+.tag .close {
+    position:absolute;
+    right:0; top:4px;
+    cursor:pointer;
+    padding: 0 7px;
+}
+
+.pupil {
+  cursor:pointer;
+}
+
+#subjects_container th {text-align:left}

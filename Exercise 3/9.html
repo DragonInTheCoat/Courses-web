@@ -1,0 +1,70 @@
+<script>
+function Airplane(id)
+{
+	this.id = id;
+	this.model = '';
+	/*this.landSpeed = Math.random() * 11;
+	this.takeoffSpeed = Math.random() * 11;
+	this.timeMutiplier = 20000;
+	this.timeTakeoff = this.timeMutiplier / this.takeoffSpeed;
+	this.timeLand = this.timeMutiplier * this.landSpeed;*/
+	
+	let timeGo = 5000;
+	
+	console.log('в аэропорту новый самолёт: ' + JSON.stringify(this));
+
+	this.goTakeoff = function()
+	{
+		console.log(id + 'опрашивает диспетчера на возможность взлёта.');
+		if ()
+		clearInterval(timerId);
+		let obj = this;
+		fun = function()
+		{
+			timerId = setInterval(obj.goLand.bind(obj), 1000);
+		}
+		setTimeout(fun, timeGo);
+	}
+
+	this.goLand = function()
+	{
+		console.log(id + ' опрашивает диспетчера на возможность посадки.');
+		clearInterval(timerId);
+		let obj = this;
+		fun = function()
+		{
+			timerId = setInterval(obj.goTakeoff.bind(obj), 1000);
+		}
+		setTimeout(fun, timeGo);
+	}
+	
+	let timerId = setInterval(this.goTakeoff.bind(this), 1000);
+}
+//переменная для функции "оборачивающей" ферму
+let factory = function(a)
+{
+	let id = 0;
+	//переменная для создания экземпляра самолёта
+	factoryPlanes = function ()
+	{
+		//проверка на завершение
+		if (id == 4)
+			clearInterval(timerId);
+		a.push(new Airplane(id++));
+	}
+	//вызов функции выше
+	let timerId = setInterval(factoryPlanes, 1000);
+}
+
+//тут можно запустить несколько переменных, для создания армии снежинок
+//в каждой группе будут ID от 0 до 4, в классе вместо ID был счетчик, так что это было оправдано
+let newFactory = factory;
+let a = [];
+let ways = ['way1', 'way2'];
+let waysFree = [true, true];
+newFactory(a);
+function dispetcher(plane)
+{
+	return ways.indexOf(waysFree.find(true));
+}
+</script>

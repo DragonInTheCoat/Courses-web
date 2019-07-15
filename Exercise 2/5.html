@@ -1,0 +1,15 @@
+<script>
+let arr = [], res = [];
+for(let i = 100; i < 1000; i++)
+	arr.push(i);
+res = arr.filter(function(elem)
+{
+	return elem == (fun(elem, 1) + fun(elem, 10) + fun(elem, 100));
+});
+
+function fun(a, n)
+{
+	return Math.pow(Math.floor(a / n % 10), 3);
+}
+console.log(res);
+</script>

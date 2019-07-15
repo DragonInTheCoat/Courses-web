@@ -1,0 +1,24 @@
+<script>
+let tree = {a:6, b:'test', c:{d:42, e:{g:'quest', h:{k:17, l:44}}, f:{i:32, j:{m:[23, 17, {n:'end'}]}}}};
+
+Object.prototype.toString = function()
+{
+	return JSON.stringify(this);
+}
+
+Object.prototype.clone = function()
+{
+	let obj = {};
+	for (let elem in this)
+	{
+		obj[elem] = typeof this[elem] == 'object'? this[elem].clone(): this[elem];
+	}
+	return obj;
+}
+
+let otherTree = tree.clone();
+otherTree.a = 7;
+otherTree.c.d = 5;
+alert(tree);
+alert(otherTree);
+</script>

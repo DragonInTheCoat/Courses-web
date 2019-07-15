@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+<div class="container">
+	<form>
+		<div class="row">
+			<div id="lname1" class="col s12 m6 l4 xl4">
+
+				<input type="text">
+			</div>
+	
+			<div id="fname1" class="col s12 m6 l4 xl4">
+
+				<input type="text">
+			</div>
+		
+			<div id="mname1" class="col s12 m6 l4 xl4">
+				<input type="text">
+			</div>
+
+			<div id="age1" class="col s12 m6 l2 xl2">
+				<input type="text">
+			</div>
+
+			<div id="phone1" class="col s12 m12 l3 xl3">
+				<input type="text">
+			</div>
+		</div>		
+		<div class="row">
+			<div class="col s12 m6 l6 xl12"><input id='input1' type="text">
+			</div>
+		</div>
+		<div class="row">
+			<div id="container2" class="col s12 m12 l12 xl12">
+			</div>
+		</div>
+		<div class="row">
+			<div id="lname1" class="col s12 m12 l12 xl6">
+				<table>
+					<tr>
+						<th>Предмет</th>
+						<th>В классе</th>
+						<th>Экспедиция</th>
+						<th>Свой проект</th>
+					</tr>
+					<tr>
+						<th>Математика</th>
+						<td><label><input type="checkbox"> <span></span></label></td>
+						<td><label><input type="checkbox"><span></span></label></td>
+						<td><label><input type="checkbox"><span></span></label></td>
+					</tr>
+					<tr>
+						<th>Физика</th>
+						<td><label><input type="checkbox"> <span></span></label></td>
+						<td><label><input type="checkbox"><span></span></label></td>
+						<td><label><input type="checkbox"><span></span></label></td>
+					</tr>
+						<tr>
+						<th>Проставить все</th>
+						<td><label><input type="checkbox"> <span></span></label></td>
+						<td><label><input type="checkbox"><span></span></label></td>
+						<td><label><input type="checkbox"><span></span></label></td>
+					</tr>
+				</table>
+				<div class="col s12">
+					<button class="btn waves-effect waves-light" type="button">Сохранить
+					</button>
+					<button class="btn waves-effect waves-light" type="button">Удалить
+					</button>
+					<button class="btn waves-effect waves-light" type="button">Клонировать
+					</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+	let ident = document.getElementById('input1');
+	let container2 = document.getElementById('container2');
+	let list;
+	ident.onchange = function()
+	{
+		list = ident.value.split(', ');
+		container2.innerHTML = '';
+		let pSpan, span;
+		console.log(list);
+		list = list.sort();
+		for(let i = 0; i < list.length + 1; i++)
+		{
+			if(list[i] == list[i+1])
+				list.splice(i, 1);
+		}
+		console.log(list);
+		let str = list.join(', ');
+		ident.value = str;
+		for (let i = 0, str; i < list.length; i++)
+		{
+			pSpan = document.createElement('span');
+			span = document.createElement('span');
+			pSpan.id = 'div' + i;
+			span.innerHTML = list[i];
+			str = span.outerHTML + '<a onclick=\"del(\''+pSpan.id+'\')\">&times;</a>';
+			pSpan.innerHTML = str;
+			container2.appendChild(pSpan);
+		}
+
+	}
+	function del(idelem){
+		//console.log(idelem);
+		let elem = document.getElementById(idelem);
+		let select = elem.querySelector('span').innerHTML;
+		list.splice(list.findIndex(el => el == select), 1);
+		ident.value = list.join(', ');
+		elem.remove();
+	};
+
+</script>
+</body></html>

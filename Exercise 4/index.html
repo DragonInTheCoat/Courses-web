@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+    .flake {
+        position:absolute;
+        background:red;
+        border-radius:50%;
+        }
+    </style>
+</head>
+<body>
+
+
+<script>
+'use strict'
+
+function Flake(){
+    this.node = null;
+    this.id=0;
+    this.x=0;
+    this.y=0;
+    this.dy=10;
+    this.size=10;
+    this.fall = (function(){
+        this.y += this.dy;
+        this.node.style.left = this.x+'px';
+        this.node.style.top = this.y+'px';
+        console.log(this.id + ': ' + this.y);
+        if(this.y<1000) setTimeout(this.fall, 100);
+    }).bind(this);
+}
+Flake.cnt = 0;
+Flake.create = function(size){
+    let theFlake = new Flake();
+    theFlake.size = size;
+    theFlake.x= Math.random()*600;
+    theFlake.dy=1 + Math.random()*9;
+    theFlake.id = ++Flake.cnt;
+    
+    let div = document.createElement('div');
+    div.className = 'flake';
+    div.style.width = theFlake.size + 'px';
+    div.style.height = theFlake.size + 'px';
+    document.body.appendChild(div);
+    
+    theFlake.node = div;
+    
+    console.log("Создал снежинку:"+JSON.stringify(theFlake));
+    
+    theFlake.fall();
+}
+
+function createFlakes() {
+    if(Flake.cnt<50) {
+        Flake.create(Math.random()*70 + 30);
+        setTimeout(createFlakes, 1000);
+    }
+}
+
+createFlakes();
+
+</script>
+</body>
+</html>

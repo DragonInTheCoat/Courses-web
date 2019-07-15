@@ -1,0 +1,13 @@
+<script>
+let a, i = 0, arr = [];
+a = prompt("Введите целое число");
+if (a[0] == '-')
+{
+	i = 1;
+	arr.push('-');
+}
+
+arr = arr.concat((a.substr(i).split('').reverse()));
+alert(arr.join(''));
+console.log(arr);
+</script>

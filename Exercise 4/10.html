@@ -1,0 +1,66 @@
+<html>
+<head>
+<style>
+	.red {background:red}
+</style>
+</head>
+<body>
+	<ol>
+		<li>
+			<a href="http://bytic.ru/courses/">Курсы Байтика</a>
+		</li>
+		<li>
+			<a href="https://javascript.ru/forum/">Форум JS</a>
+		</li>
+		<li>
+			<a href="http://bytic.ru/antikafe.html">Расписание Антикафе</a>
+		</li>
+		<li class="red">
+			<a href="http://forecast.izmiran.ru/index.php?page=weather.ttl">Погода в Троицке</a>
+		</li>
+		<li>
+			<a href="http://bytic.com/contacts">Контакты Калифорнийского филиала</a>
+		</li>
+		<li>
+			<a href="http://sotobyticarudan.tv">Любимое телевидение</a>
+		</li>
+		<li class="red">
+			<a href="http://admtroitsk.ru/">Сайт администрации</a>
+		</li>
+		<li>
+			<a href="http://web.bytic.ru/box/">Коробки</a>
+		</li>
+	</ol>
+</body></html>
+
+<script>
+let scrollHeight = document.documentElement.clientHeight;
+let span = document.createElement('span');
+span.innerHTML = 'Строка 1';
+document.body.appendChild(span);
+for (let i = 2; scrollHeight <= 2000; i++, scrollHeight = document.documentElement.clientHeight)
+{
+	span = document.createElement('span');
+	span.innerHTML = 'Строка ' + i;
+
+	document.body.appendChild(document.createElement('br'));
+	document.body.appendChild(span);
+}
+/*let listElem = document.body.querySelectorAll('span');
+for (elem of listElem)
+{
+	elem.onclick = function() {
+	if (this.nextSibling != null) this.nextSibling.remove();
+	this.remove();
+	};
+}*/
+document.body.oncontextmenu = function(event) {
+		if(event.target.nodeName == 'SPAN')
+		{
+			event.preventDefault();
+			if (event.target.nextSibling != null)
+				event.target.nextSibling.remove();
+			event.target.remove();
+		}
+	};
+</script>

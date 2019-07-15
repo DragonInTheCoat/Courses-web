@@ -1,0 +1,16 @@
+<script>
+function fibonachi(A)
+{
+	if (isNaN(A) || A < 0)
+		return 0;
+	let a = 1, b = 1;
+	for (;A > 1; A--)
+	{
+		if (A % 2) a = a + b;
+		else b = a + b;
+	}
+	return Math.min(a, b);
+}
+
+console.log(fibonachi(12));
+</script>

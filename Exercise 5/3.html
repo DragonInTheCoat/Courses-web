@@ -1,0 +1,338 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+		<div id="container1" class="col s12 m12">
+			
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col s12">
+			<button id="addstudent"	class="btn waves-effect waves-light" type="button">Добавить ученика
+			</button>
+			<button id="changesubjectlist"	class="btn waves-effect waves-light" type="button">Изменить список предметов
+			</button>
+		</div>
+	</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js">
+M.AutoInit();
+</script>
+
+</body></html>
+
+<script>
+	
+	let subjectsCollection = {
+		subjects: ['Математика', 'Физика', 'Литература', 'Программирование', 'История', 'Русский язык', 'Физкультура', 'Труд'],
+		addSubject: function(subject){
+			subjects.push(subject);
+		},
+		removeSubject: function(subject){
+			subjects.splice(subjects.findIndex(el => el == subject), 1);
+		}
+	}
+	
+	function Student(lname, fname, mname, phone, tags, age, subjects)
+	{
+		
+		this.lname = lname;
+		this.fname = fname;
+		this.mname = mname;
+		this.phone = phone;
+		this.tags = tags.slice();	
+		this.age = age;
+		this.subjects = JSON.parse(JSON.stringify(subjects));
+		this.getShortFio = function()
+		{
+			if(this.fname == '' && this.mname == '')
+			{
+				return this.lname;
+			}else if(this.fname == '')
+			{
+				return this.lname + ' ' + this.mname[0] + '.';
+			}else if(this.mname == '')
+			{
+				return this.lname + ' ' + this.fname[0] + '. ';
+			}
+			else if(this.lname == '')
+			{
+				return this.fname + ' ' + this.mname[0] + '. ';
+			}
+			return this.lname + ' ' + this.fname[0] + '. ' + this.mname[0] + '.';
+		}
+	}
+	
+	Student.createStudent = function(lname, fname, mname, phone, tags, age)
+	{
+		let subs = new Object();
+		for(elem in subjectsCollection.subjects)
+		{
+			subs[elem] = {class: 0, expedition: 0, project: 0};
+		}
+		return new Student(lname, fname, mname, phone, tags, age, subs);
+	}
+	
+	let students = [];
+	students.push(Student.createStudent('Павлов', 'Павел', 'Павлович', '+7 916 322-22-32', ['геометр', 'любит блинчики', 'без вредных привычек', 'велосипедист'], 15));
+	students.push(Student.createStudent('Павлов', 'Рейнхард', 'Павлович', '+7 916 322-22-32', ['геометр', 'любит блинчики', 'без вредных привычек', 'велосипедист'], 15));
+	students.push(Student.createStudent('Павлов', 'Розари', 'Павлович', '+7 916 322-22-32', ['геометр', 'любит блинчики', 'без вредных привычек', 'велосипедист'], 15));
+	students.push(Student.createStudent('Павлов', 'Киндерсюрприз', 'Павлович', '+7 916 322-22-32', ['геометр', 'любит блинчики', 'без вредных привычек', 'велосипедист'], 15));
+	students.push(Student.createStudent('Павлов', 'Торт', 'Павлович', '+7 916 322-22-32', ['геометр', 'любит блинчики', 'без вредных привычек', 'велосипедист'], 15));
+	students.push(Student.createStudent('Павлов', 'Глэдис', 'Павлович', '+7 916 322-22-32', ['геометр', 'любит блинчики', 'без вредных привычек', 'велосипедист'], 15));
+	//===========================================================
+	let div = [];
+	
+	let button = document.getElementById("button1");
+	let container = document.getElementById("container1");
+	function formFun(key)
+	{
+		document.getElementById("addstudent").disabled = true;
+		container.innerHTML = '';
+		let str;
+		str='<div class="row">'
+		str+='<div class="col s12 m6 l4 xl4">'
+		str+='		<input id="lname1" type="text" placeholder="Фамилия" value="'+students[key].lname+'">'
+		str+='	</div>'
+		str+='	<div class="col s12 m6 l4 xl4">'
+		str+='	<input id="fname1" type="text" placeholder="Имя" value="'+students[key].fname+'">'
+		str+='	</div>'
+		str+='	<div class="col s12 m6 l4 xl4">'
+		str+='	<input id="mname1" type="text" placeholder="Отчество" value="'+students[key].mname+'">'
+		str+='	</div>'
+		str+='	<div class="col s12 m6 l2 xl2">'
+		str+='		<input id="age1" type="number" placeholder="Возраст" value='+students[key].age+'>'
+		str+='	</div>'
+		str+='	<div class="col s12 m12 l3 xl3">'
+		str+='		<input id="phone1" type="text" placeholder="Телефон" value="'+students[key].phone+'" maxlength = "16">'
+		str+='	</div>'
+		str+='</div>'
+		
+		str+='<div class="row">'
+		str+='	<div class="col s12 m6 l6 xl12"><input id="input1" type="text" placeholder="Введите теги через запятую и пробел">'
+		str+='	</div>'
+		str+='</div>'
+		str+='<div class="row">'
+		str+='	<div id="container2" class="col s12 m12 l12 xl12">'
+		str+='	</div>'
+		str+='</div>'
+		
+		str+='<div class="row">'
+		str+='	<div class="col s12 m12 l12 xl12">'
+		str+='		<table>'
+		str+='			<tr>'
+		str+='				<th>Предмет</th>'
+		str+='				<th>В классе</th>'
+		str+='				<th>Экспедиция</th>'
+		str+='				<th>Свой проект</th>'
+		str+='			</tr>'
+		for(elem in subjectsCollection.subjects)
+		{
+			str+='<tr>'
+			str+='	<th>'+subjectsCollection.subjects[elem]+'</th>'
+			str+='	<td><label><input name="check1" subject="'+elem+'" type="checkbox"'+(students[key].subjects[elem].class == 1? 'checked': '') +'><span></span></label></td>'
+			str+='	<td><label><input name="check2" subject="'+elem+'"  type="checkbox"'+(students[key].subjects[elem].expedition == 1? 'checked': '') +'><span></span></label></td>'
+			str+='	<td><label><input name="check3" subject="'+elem+'"  type="checkbox"'+(students[key].subjects[elem].project == 1? 'checked': '') +'><span></span></label></td>'
+			str+='</tr>';
+		}
+		str+='			<tr>'
+		str+='				<th>Проставить все</th>';
+		str+='				<td><label><input id="check1" type="checkbox"><span></span></label></td>'
+		str+='				<td><label><input id="check2" type="checkbox"><span></span></label></td>'
+		str+='				<td><label><input id="check3" type="checkbox"><span></span></label></td>'
+		str+='			</tr>'
+		str+='		</table>'
+		str+='		<div class="col s12">'
+		str+='			<button id="save" class="btn waves-effect waves-light" type="button">Сохранить'
+		str+='			</button>'
+		str+='			<button id="delete" class="btn waves-effect waves-light" type="button">Удалить'
+		str+='			</button>'
+		str+='			<button id="clone" class="btn waves-effect waves-light" type="button">Клонировать'
+		str+='			</button>'
+		str+='		</div>'
+		str+='	</div>'
+		str+='</div>';
+		
+		let form = document.createElement('form');
+		if (container.querySelector('form') != null)
+			container.querySelector('form').remove();
+		form.innerHTML = str;
+		let checkAll = function()
+		{
+			for(el of form.querySelectorAll('input[name="'+this.id+'"]'))
+			{
+				el.checked = this.checked == true;
+			}
+		}
+		let uncheck = function()
+		{
+			if (document.getElementById(this.name).checked)
+				document.getElementById(this.name).checked = false;
+		}
+		
+		container.appendChild(form);
+		document.getElementById('check1').onclick = checkAll;
+		document.getElementById('check2').onclick = checkAll;
+		document.getElementById('check3').onclick = checkAll;
+		for(el of form.querySelectorAll('input[name="check1"]'))
+		{
+			el.onclick = uncheck;
+		}
+		for(el of form.querySelectorAll('input[name="check2"]'))
+		{
+			el.onclick = uncheck;
+		}
+		for(el of form.querySelectorAll('input[name="check3"]'))
+		{
+			el.onclick = uncheck;
+		}
+		
+		let ident = document.getElementById('input1');
+		let container2 = document.getElementById('container2');
+		let list;
+
+		ident.onchange = function inputtags()
+		{
+			list = ident.value.split(', ');
+			container2.innerHTML = '';
+			let pSpan, span;
+			//console.log(list);
+			list = list.sort();
+			for(let i = 0; i < list.length + 1; i++)
+			{
+				if(list[i] == list[i+1])
+					list.splice(i, 1);
+			}
+		//console.log(list);
+			let str = list.join(', ');
+			ident.value = str;
+			for (let i = 0; i < list.length; i++)
+			{
+			let ax;
+			pSpan = document.createElement('span');
+			span = document.createElement('span');
+			pSpan.id = 'div' + i;
+			span.innerHTML = list[i];
+			ax = document.createElement('a');
+			ax.innerHTML = "&times;";
+			ax.onclick = function del(){
+
+				let idelem = this.parentNode.id;
+				//console.log(idelem);
+				let elem = document.getElementById(idelem);
+				if(elem != null){
+					let select = elem.querySelector('span').innerHTML;
+					list.splice(list.findIndex(el => el == select), 1);
+					ident.value = list.join(', ');
+					elem.remove();
+				}
+			};
+			pSpan.appendChild(span);
+			pSpan.appendChild(ax);
+			//str = span.outerHTML + '<a onclick=\"del\(\''+pSpan.id+'\'\)\">&times;</a>';
+			//pSpan.innerHTML = str;
+			container2.appendChild(pSpan);
+			}
+
+		}
+		let num = document.getElementById('phone1');
+		num.oninput = function(event) {
+		console.log(event);
+		let position = event.srcElement.selectionStart;
+		let len = num.value.length;
+		if(event.inputType != 'deleteContentBackward' || position < len)
+		{
+			position = event.srcElement.selectionStart;
+			if(num.value.match(/\d/) == null)
+				num.value = 7;
+			num.value = num.value.match(/\d/g).join('');
+			num.value = num.value.replace(/^[78]|^(\d)/,'+7 $1');
+			num.value = num.value.replace(/(^\+7 \d{3})(?=\S|$)/,'$1 ');
+			num.value = num.value.replace(/(^\+7 \d{3} \d{3})(?!-)/,'$1-');
+			num.value = num.value.replace(/(^\+7 \d{3} \d{3}-\d{2})(?!-)/,'$1-');
+
+		}
+		if(position < len)
+			num.setSelectionRange(position,position);
+	};
+		if (students[key].tags != '')
+		{
+			ident.value = students[key].tags.join(', ');
+			ident.onchange();
+		}
+		function save()
+		{
+			//console.log(document.getElementById('lname1'));
+			students[key].lname = document.getElementById('lname1').value;
+			students[key].fname = document.getElementById('fname1').value;
+			students[key].mname = document.getElementById('mname1').value;
+			students[key].phone = document.getElementById('phone1').value;
+			students[key].age = document.getElementById('age1').value;
+			students[key].tags = document.getElementById('input1').value.split(', ');
+			for(elem in subjectsCollection.subjects)
+			{
+				let selectList = document.querySelectorAll('input[subject="'+elem+'"]');
+				students[key].subjects[elem].class = selectList[0].checked;
+				students[key].subjects[elem].expedition = selectList[1].checked;
+				students[key].subjects[elem].project = selectList[2].checked;
+				//console.log(students[key].subjects[elem]);
+				//students[key].subjects[elem].expedition = 
+				//students[key].subjects[elem].project = 
+			}
+		}
+		document.getElementById('save').onclick = function()
+		{
+			save();
+			form.remove();
+			respawn()
+		}
+		document.getElementById('delete').onclick = function()
+		{
+			console.log(key);
+			console.log(students[key]);
+			
+			students.splice(key, 1);
+			form.remove();
+			respawn()
+		}
+		document.getElementById('clone').onclick = function()
+		{
+			save();
+			students.push(new Student(students[key].lname, students[key].fname, students[key].mname, students[key].phone, students[key].tags, students[key].age, students[key].subjects));
+			form.remove();
+			respawn();
+		}
+	}
+	let selectClick = function()
+	{
+		formFun(this.name);	
+	}
+	function respawn()
+	{
+		document.getElementById("addstudent").disabled = false;
+		container.innerHTML = '';
+		for(let i = 0; i<students.length; i++)
+		{
+			div.push(document.createElement('div'));
+			div[i].innerHTML = students[i].getShortFio();
+			div[i].name = i;
+			div[i].onclick = selectClick;
+			container.appendChild(div[i],button);
+		}
+	}
+	document.getElementById("addstudent").onclick = function()
+	{
+		students.push(Student.createStudent('Новый ученик', '', '', '', '',''));
+		formFun(students.length - 1);
+	}
+	document.getElementById("changesubjectlist").onclick = function()
+	{
+		
+	}
+	respawn();
+</script>

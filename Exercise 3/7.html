@@ -1,0 +1,53 @@
+<script>
+function Human()
+{
+	this.name = 'Серёга';
+	this.date = new Date();
+}
+Human.prototype.sayHello = function()
+{
+	alert('Hello');
+}
+function Pupil()
+{
+	Human.apply(this);
+	this.course = 0;
+	this.listenedClasses = 0;
+	this.listenClass = function()
+	{
+		++this.listenedClasses;
+	}
+}
+Pupil.prototype = Object.create(Human.prototype);
+function Programmer()
+{
+	Human.apply(this);
+	this.email = '';
+	Object.defineProperty(this, "e-mail", { 
+		set: function (value) 
+		{
+			let str = value.match(/^[a-z]+\w*@\w+\.\w+/i);
+			alert(str);
+			this.email = str != null ? str: this.email;
+		}
+		,
+		get: function () 
+		{
+			return this.email;
+		} 	
+	});
+}
+Programmer.prototype = Object.create(Human.prototype);
+
+
+let human = new Human();
+let pupil = new Pupil();
+let pro = new Programmer();
+pupil.listenClass();
+//pupil.sayHello()
+//pro['e-mail'] = '123412341234email@yandex.ru';
+//pro['e-mail'] = '1234email@yandex.ru';
+//pro['e-mail'] = 'emaieef333l@yandex.com';
+pro['e-mail'] = 'e@1.1';
+console.log(pupil.listenedClasses);
+</script>

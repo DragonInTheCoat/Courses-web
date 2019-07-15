@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div id='container1'></div>
+<button id='generalButton'>сделать хорошо</button>
+</body>
+</html>
+
+<script>
+'use strict'
+function buttonGenerate()
+{
+	let button = document.createElement('button');
+	let count = 0;
+	button.innerHTML = 0;
+	button.onclick = function()
+	{
+		button.innerHTML = ++count;
+	}
+	document.getElementById('container1').appendChild(button);
+}
+document.getElementById('generalButton').onclick = function()
+{
+	buttonGenerate();
+}
+</script>

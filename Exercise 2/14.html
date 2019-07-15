@@ -1,0 +1,11 @@
+<script>
+function getRandom() {
+	if (arguments.length < 2)
+		return NaN;
+	let max = Math.max(arguments[1], arguments[0]) + 1;
+	let min = Math.min(arguments[1], arguments[0]);
+	return Math.floor(Math.random() * (max - min)) + min;
+}
+
+console.log(getRandom(0, 1));
+</script>

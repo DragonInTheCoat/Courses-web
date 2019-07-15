@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="css.css" rel="stylesheet">
+</head>
+<body>
+<input type="button" value="Добавить ученика"><br><br>
+<div id="pupils_container"></div>
+<br>
+<hr>
+<br>
+
+<form name="pupil" hidden>
+    <input type="text" name="id" value=""><br>
+    <input type="text" name="lname" value="" placeholder="Фамилия"><br>
+    <input type="text" name="fname" value="" placeholder="Имя"><br>
+    <input type="text" name="mname" value="" placeholder="Отчество"><br>
+    
+    <input type="text" name="phone" value="" placeholder="Телефон" maxlength="16">
+    <div id="tags_container">
+        <div class="tag">Строка<div class="close">&times;</div></div>
+    </div>
+    <input type="text" name="tags" value=""><br>
+
+    <input type="number" name="age" value="" min="6" max="99"><br>
+    
+    <div id="subjects_container"></div>
+    
+    
+    <input type="button" onclick="save()" value="Сохранить">
+    <input type="button" onclick="del()" value="Удалить">
+    <input type="button" value="Клонировать">
+</form>
+
+<script src="js.js"></script>
+</body>
+</html>

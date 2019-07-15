@@ -1,0 +1,47 @@
+<script>
+let n = [];
+do
+{
+	n.push(+prompt("Введите число"));
+}
+while(!isNaN(n[n.length - 1]) && n[n.length - 1] != 0);
+
+function fun(n)
+{
+	let count = n[n.length - 1] == 0 ? n.length: n.length - 1;
+	let max, min, mid = 0, i = 0, tmp, often;
+	let ft = function (elem)
+	{
+		return elem == n[i]; 
+	}
+	if (n[i] == 0 || isNaN(n[i]))
+	{
+		max = min = often = mid = 0;
+	}
+	else
+	{
+		max = min = often = n[i];
+		tmp = n.filter(ft).length;
+
+		for (; i < count; i++)
+		{
+			if (max < n[i])
+				max = n[i];
+			if (min > n[i])
+				min = n[i];
+			if (tmp < n.filter(ft).length)
+				often = n[i];
+			mid = mid + n[i];
+		}
+		mid = mid / count;
+	}
+	console.log(min);
+	console.log(max);
+	console.log(mid);
+	console.log(often);
+}
+
+fun(n);
+
+//console.log(fun(n));
+</script>

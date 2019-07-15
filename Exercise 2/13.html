@@ -1,0 +1,14 @@
+<script>
+function funSum()
+{
+	if (arguments.length == 0)
+		return NaN;
+	let max = arguments[0];
+	for (i = 0; i < arguments.length; i++)
+		if (max < arguments[i])
+			max = arguments[i];
+	return max;
+}
+
+console.log(funSum(12, 2, 4, 6, 4, -4));
+</script>

@@ -1,0 +1,37 @@
+<html>
+<head>
+</head>
+<body>
+	<input type = "text" maxlength = "16">
+</body></html>
+
+<script>
+	let num = document.getElementByName('phone1');
+	num.oninput = function(event) {
+		let position = event.srcElement.selectionStart;
+		let len = num.value.length;
+		if(event.inputType != 'deleteContentBackward' || position < len)
+		{
+			position = event.srcElement.selectionStart;
+			if(num.value.match(/\d/) == null)
+				num.value = 7;
+			num.value = num.value.match(/\d/g).join('');
+			num.value = num.value.replace(/^[78]|^(\d)/,'+7 $1');
+			num.value = num.value.replace(/(^\+7 \d{3})(?=\S|$)/,'$1 ');
+			num.value = num.value.replace(/(^\+7 \d{3} \d{3})(?!-)/,'$1-');
+			num.value = num.value.replace(/(^\+7 \d{3} \d{3}-\d{2})(?!-)/,'$1-');
+
+		}
+		if(position < len)
+			num.setSelectionRange(position,position);
+	};
+	/*function check(num1)
+	{
+		console.log(/^\+?7? \d\d\d \d\d\d-\d\d-?\d?\d?$/.test(num1));
+		console.log(/^\+7 \d\d\d \d\d\d-?\d?\d?$/.test(num));
+		console.log(/^\+7 \d\d\d ?\d?\d?\d?$/.test(num1));
+		console.log(/^\+7 ?\d?\d?\d?$/.test(num1));
+		console.log( /\+7$/.test(num1));
+		return (/^\+?7? \d\d\d \d\d\d-\d\d-(?=\d)\d?\d?$/.test(num1) || /^\+7 \d\d\d \d\d\d-(?=\d)\d?\d?$/.test(num1) || /^\+7 \d\d\d (?=\d)\d?\d?\d?$/.test(num1) || /^\+7 (?=\d)\d?\d?\d?$/.test(num1) || /\+7$/.test(num1));
+	}*/
+</script>

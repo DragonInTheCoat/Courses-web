@@ -1,0 +1,32 @@
+<script>
+	let a = 1;
+	let b = 4000;
+
+	if (a == Infinity)
+	{
+		a = b;
+		b = Infinity;
+	}
+	else if (b == Infinity)
+	{
+		b = a;
+		a = Infinity;
+	}
+	else if(isNaN(a))
+	{
+		a = b;
+		b = NaN;
+	}
+	else if(isNaN(b))
+	{
+		b = a;
+		a = NaN;
+	}
+	else
+	{
+		a = a ^ b;
+		b = a ^ b;
+		a = a ^ b;
+	}
+	alert(a + ' ' + b);
+</script>

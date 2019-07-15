@@ -1,0 +1,51 @@
+<html>
+<head>
+<style>
+	.red {background:red}
+</style>
+</head>
+<body>
+	<ol>
+		<li>
+			<a href="http://bytic.ru/courses/">Курсы Байтика</a>
+		</li>
+		<li>
+			<a href="https://javascript.ru/forum/">Форум JS</a>
+		</li>
+		<li>
+			<a href="http://bytic.ru/antikafe.html">Расписание Антикафе</a>
+		</li>
+		<li class="red">
+			<a href="http://forecast.izmiran.ru/index.php?page=weather.ttl">Погода в Троицке</a>
+		</li>
+		<li>
+			<a href="http://bytic.com/contacts">Контакты Калифорнийского филиала</a>
+		</li>
+		<li>
+			<a href="http://sotobyticarudan.tv">Любимое телевидение</a>
+		</li>
+		<li class="red">
+			<a href="http://admtroitsk.ru/">Сайт администрации</a>
+		</li>
+		<li>
+			<a href="http://web.bytic.ru/box/">Коробки</a>
+		</li>
+	</ol>
+</body></html>
+
+<script>
+let list1 = document.body.querySelectorAll('ol li a[href*="http://bytic.ru"]');
+for (elem of list1)
+{
+	elem.parentNode.style.display = 'none';
+}
+let list = document.body.querySelectorAll("li[style*='none'] a");
+let s = 'Скрыты ссылки: ';
+for(elem of list)
+{
+	s = s + elem.innerHTML + ', ';
+}
+s = s.slice(0,-2);
+let text = document.createTextNode(s);
+document.body.appendChild(text);
+</script>

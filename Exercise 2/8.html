@@ -1,0 +1,15 @@
+<script>
+let arr = [];
+
+for (let i = 0; i < 10; i++)
+{
+	arr[i] = [];
+	arr[i].push(i + 1);
+	for (let j = 1; j < 10; j++)
+	{
+		arr[i].push((j + 1) * (i + 1));
+	}
+}
+
+console.log(arr);
+</script>

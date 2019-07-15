@@ -1,0 +1,32 @@
+<script>
+let A;
+let n;
+
+do
+{
+	A = prompt('Введите высоту ёлки:').trim();
+	if (!isNaN(+A) && A != '')
+	{
+		A = +A;
+		if (A > 120 || A < 0)
+			alert("Число строк не должно превышать 120 или быть меньше 0.");
+		else
+			break;
+	}
+	else
+		alert('Не число.');
+}
+while(true)
+
+n = A - 1;
+let s = '';
+
+for (let i = A-1; i >= 0; i--)
+{
+	for (let j = 0; j <= n + i; j++)
+		s = (j < n - i) ? s + ' ': s + '*';
+	s = s + '\n\r';
+}
+	console.log(s);
+
+</script>

@@ -1,0 +1,27 @@
+<script>
+let price = Math.round(Math.random()*1000);
+let n;
+
+do
+{
+	n = prompt('С Вас ' + price).trim();
+	if (!isNaN(+n) && n != '')
+	{
+		if (+n < 0)
+			n = 0;
+	}
+	else
+	{
+		alert('Не число.');
+		n = 0;
+	}
+	price -=n;
+	if (price > 0)
+		alert("Необходимо доплатить: " + price);
+}
+while(price > 0)
+
+if (price < 0)
+	alert("Ваша сдача: " + -price);
+
+</script>

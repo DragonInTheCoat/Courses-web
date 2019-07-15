@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div id='container1'></div>
+<button id='generalButton'>сделать хорошо</button>
+</body>
+</html>
+
+<script>
+'use strict'
+let dictionary = {};
+
+function inputGenerate(id)
+{
+	let div = document.createElement('div');
+	let input = document.createElement('input');
+	input.type = "text";
+	let button1 = document.createElement('button');
+	button1.innerHTML = '<-';
+	let button2 = document.createElement('button');
+	button2.innerHTML = '->';
+	input.id = 'input' + id;
+	let arr = [];
+	dictionary[input.id] = arr;
+	input.datai = -1;
+	input.value = '';
+	input.onchange = function()
+	{
+		this.datai++;
+		dictionary[this.id].push(this.value);
+	}
+	button1.onclick = function()
+	{
+		if(dictionary[input.id][input.datai-1] != undefined)
+		{
+			console.log(dictionary[input.id]);
+			input.datai--;
+			input.value = dictionary[input.id][input.datai];
+		}
+	}
+	button2.onclick = function()
+	{
+		if(dictionary[input.id][input.datai+1] != undefined)
+		{
+			input.datai++;
+			input.value = dictionary[input.id][input.datai];
+		}
+	}
+	div.appendChild(input);
+	div.appendChild(button1);
+	div.appendChild(button2);
+	document.getElementById('container1').appendChild(div);
+}
+let count = 0;
+document.getElementById('generalButton').onclick = function()
+{
+	inputGenerate(count++);
+}
+
+</script>

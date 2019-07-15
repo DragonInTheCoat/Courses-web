@@ -1,0 +1,51 @@
+<html>
+<head>
+</head>
+<body>
+	<div id="container2"></div>
+	<input id="input1" type = "text">
+</body></html>
+
+<script>
+	let ident = document.getElementById('input1');
+	//let container2 = document.getElementById('container2');
+	let list;
+	ident.value = "Маша, Паша, Саша, Паша, Миша, Саша, Маша, Даша";
+	ident.onchange = function()
+	{
+		list = ident.value.split(', ');
+		container1.innerHTML = '';
+		let div, span;
+		console.log(list);
+		list = list.sort();
+		for(let i = 0; i < list.length + 1; i++)
+		{
+			if(list[i] == list[i+1])
+				list.splice(i, 1);
+		}
+		console.log(list);
+		let str = list.join(', ');
+		ident.value = str;
+		for (let i = 0, str; i < list.length; i++)
+		{
+			//div = document.createElement('div');
+			span = document.createElement('span');
+			span.id=10+i;
+			//div.id = 'div' + i;
+			span.innerHTML = list[i];
+			str = span.outerHTML + '<a onclick=\"del(\''+span.id+'\')\">&times;</a>';
+			div.innerHTML = str;
+			container2.appendChild(div);
+		}
+
+	}
+	function del(idelem){
+		console.log(idelem);
+		let elem = document.getElementById(idelem);
+		let select = elem.querySelector('span').innerHTML;
+		list.splice(list.findIndex(el => el == select), 1);
+		ident.value = list.join(', ');
+		elem.remove();
+	};
+
+</script>

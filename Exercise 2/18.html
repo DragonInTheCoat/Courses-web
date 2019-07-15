@@ -1,0 +1,77 @@
+<script>
+let arr = [];// = new Array(10);
+
+//женские/мужские имена
+let arrNames1 = [['name1', 'name2', 'name3', 'name4', 'name5'],
+['_name1', '_name2', '_name3', '_name4', '_name5']];
+
+//женские/мужские фамилии
+let arrNames2 = [['lastname1','lastname2','lastname3','lastname4','lastname5'], ['_lastname1','_lastname2','_lastname3','_lastname4','_lastname5']];
+
+//возвращает объект случайной персоны
+function Generic()
+{
+	let max = +(new Date(2012, 11, 21)) + 1;
+	let min = +(new Date(1970, 0, 1));
+	let _sex = Math.floor(Math.random() * 2);
+	let _name = arrNames1[_sex][Math.floor(Math.random() * 5)];
+	let _lastname = arrNames2[_sex][Math.floor(Math.random() * 5)];
+	let _birthday = new Date(Math.floor(Math.random() * (max - min)) + min);
+	return {'name': _name,
+			'patronymic': _lastname,
+			'sex': _sex,
+			'birthday': _birthday
+	};
+}
+
+//возвращает строку информации об объекте
+function Info(obj)
+{
+	let now = new Date();
+	let age;
+	if ((obj.birthday.getMonth() <= now.getMonth()) && 
+	(obj.birthday.getDate() < now.getDate()))
+		age = now.getFullYear() - obj.birthday.getFullYear();
+	else
+		age = now.getFullYear() - obj.birthday.getFullYear() - 1;
+	return obj.name + ' ' + obj.patronymic + ' ' + age + ' лет';
+}
+
+//возвращает строку объектов с одинаковыми именами
+function InfoFun(arr)
+{
+	let str = 'тёзки: ';
+	if (arr.length != 0)
+		for (let i = 0; i < arr.length; i++)
+		{
+			str += Info(arr[i]) + ', ';
+		}
+	return str.slice(0, -2);
+}
+
+//генерация массива
+for (let i = 0; i < 10; i++)
+{
+	arr.push(Generic());
+	console.log((i + 1) + ' ' + Info(arr[i]));
+}
+
+//находятся тёзки
+for (let i = 0, arrObj = [], k = 0; i < arr.length; i++)
+{
+	let check = function(elem){
+		return elem.name == arr[i].name && elem.patronymic == arr[i].patronymic;
+	}
+	if (arrObj.some(elem => elem.some(check)))
+		continue;
+	arrObj.push(arr.filter(check));
+	if (arrObj[k].length > 1)
+		console.log(InfoFun(arrObj[k++]));
+}
+
+//сортирует массив и выводит первый эелемент (самого старого персонажа)
+arr.sort((a, b) => a.birthday - b.birthday);
+console.log('самый старый:' + ' ' + Info(arr[0]));
+
+
+</script>
